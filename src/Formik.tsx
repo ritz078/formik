@@ -251,7 +251,8 @@ export class Formik<ExtraProps = {}, Values = object> extends React.Component<
   setFieldValue = (
     field: string,
     value: any,
-    shouldValidate: boolean = true
+    shouldValidate: boolean = true,
+    cb?: () => void
   ) => {
     // Set form field by name
     this.setState(
@@ -262,6 +263,9 @@ export class Formik<ExtraProps = {}, Values = object> extends React.Component<
       () => {
         if (this.props.validateOnChange && shouldValidate) {
           this.runValidations(this.state.values);
+        }
+        if (cb) {
+          cb();
         }
       }
     );
